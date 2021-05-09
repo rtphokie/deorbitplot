@@ -54,17 +54,9 @@ def chart_satellite_height(norad_cat_ids, title, deorbitdatetimes=[]):
     ax1.plot(daysbefore1, ya1, "--", markersize=10, label='2020 apogee', color='xkcd:baby blue', linewidth=5 )
     ax1.plot(daysbefore1, yp1, "--", markersize=10, label='2020 perigee', color='xkcd:lilac', linewidth=5 )
 
-    # ax1.plot(daysbefore1, yv1, "-", markersize=10, label='2021 velocity', color='xkcd:blue green', linewidth=5 )
-    # ax1.plot(daysbefore2, yv2, "--", markersize=10, label='2020 velocity', color='xkcd:seafoam', linewidth=5 )
-    # pprint(yv1)
-    # pprint(yv2)
-    # pprint(daysbefore2)
-    # ax2.set_ylim([0, max(yv1)])
     print(daysbefore2[-1])
     ax1.set_xlabel("days before deorbit", fontsize=12)
     ax1.set_ylabel("altitude (miles)", fontsize=12)
-    # ax2.set_ylabel('orbital velocity (km/s)', fontsize=10)  # we already handled the x-label with ax1
-    # ax2.tick_params(axis='y')
 
     plt.title(f"{title}", fontsize=20)
     plt.legend(fontsize=16)
@@ -72,7 +64,7 @@ def chart_satellite_height(norad_cat_ids, title, deorbitdatetimes=[]):
 
 def _calculate_apsis(norad_cat_id, seconds=6000, orderby='epoch asc'):
     my_list = st.tle(norad_cat_id=norad_cat_id, limit=500, orderby=orderby, format='tle').splitlines()
-    # my_list = st.tle(norad_cat_id=norad_cat_id, orderby='epoch asc', format='tle').splitlines()
+
     n = 2
     tles = [my_list[i * n:(i + 1) * n] for i in range((len(my_list) + n - 1) // n)]
     prev = ['', '']
@@ -138,19 +130,16 @@ def mapit(objects):
         for i in range(start, len(df)):
             fig.add_trace(
                 go.Scattergeo(
-                    # locationmode='USA-states',
                     hoverinfo='text',
                     text=f"{object['name']}<br>{df['dtstr'][i]}<br>{df['latitude'][i]:.2f},{df['longitude'][i]:.2f}",
                     lon=[df['start_lon'][i], df['longitude'][i]],
                     lat=[df['start_lat'][i], df['latitude'][i]],
                     mode='lines',
                     line=dict(width=3, color=object['color']),
-                    # opacity=float(df['cnt'][i]) / float(df['cnt'].max()),
                 )
             )
 
         fig.update_layout(
-            # title_text = 'Feb. 2011 American Airline flight paths<br>(Hover for airport names)',
             showlegend=False,
             geo=dict(
                 scope='world',
