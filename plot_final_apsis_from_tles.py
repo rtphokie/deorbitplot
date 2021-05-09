@@ -31,8 +31,6 @@ def chart_satellite_height(norad_cat_ids, title, deorbitdatetimes=[]):
     ax1.set_ylim([0, max(max(ya2), max(ya1))])
     plt.gcf().autofmt_xdate()
 
-    # ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    # color = 'xkcd:green'
 
     # plot Y axeses
     plt.setp(ax1.get_xticklabels(), fontsize=16)
@@ -42,8 +40,7 @@ def chart_satellite_height(norad_cat_ids, title, deorbitdatetimes=[]):
                 xycoords='axes fraction', fontsize=9,
                 horizontalalignment='right', verticalalignment='bottom')
 
-    # 2021-05-09 02:04
-    deorbitdate2021=datetime(2021,5,9,2,04,tzinfo=pytz.UTC)
+    deorbitdate2021=datetime(2021,5,9,2,04,tzinfo=pytz.UTC). # latest Space-Track predication as of 2021-05-08
 
     daysbefore1 = [(x-x1[-1]).total_seconds()/86400.0 for x in x1]
     daysbefore2 = [(x-deorbitdate2021).total_seconds()/86400.0 for x in x2]
